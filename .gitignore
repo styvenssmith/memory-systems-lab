@@ -1,0 +1,42 @@
+# Build outputs
+build/
+cmake-build-*/
+out/
+bin/
+lib/
+
+# C/C++ object files and binaries
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Coverage and profiling
+*.gcda
+*.gcno
+*.gcov
+coverage/
+perf.data
+callgrind.out.*
+massif.out.*
+
+# Debugger and crash files
+core
+core.*
+vgcore.*
+*.dSYM/
+
+# Editors and operating systems
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+
+# Python artifacts for scripts/tools
+__pycache__/
+*.py[cod]
+.venv/
