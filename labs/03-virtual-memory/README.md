@@ -9,3 +9,99 @@ Experiment 2
 
 Experiment 3
 1. We touch one byte per page table, to understand that mmap() does not immediately allocate physical RAM because it only creates a virtual memory mapping. The OS uses demand paging, so physical pages are allocated when the progam first accesses each page. mmap() does not construct C++ objects; it only provides raw storage
+
+
+Experiment 4
+Question:
+    - How can I see the memory region that mmap created
+answer:
+    - /proc/self/maps
+
+
+Experiment 5
+Question:
+    - We want to know what problem does munmap() solve
+Answer:
+    - tells the kernel I'm done with this mapping
+
+    1. munmap() needs the original address returned by mmap() because we need the actual start of the original data we allocated, if the memory address is less or more than the start we will accidentally remove memory we did not mean to access, we need the original length for the same reason to know the precise memory we want to remove
+    2. munmap(memory, length)
+        - find the mapping that begins at memory
+        - removes that mapping from your process's virtual address space
+        - invalidates the page table entries for that region
+        - frees physical pages if no longer needed
+        - returns 0 on success
+
+
+Experiment 6 placement construction
+    - mmap() gives you the warehouse
+    - construct_at() put the object on the shelf, the allocator decides where shelves exist
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

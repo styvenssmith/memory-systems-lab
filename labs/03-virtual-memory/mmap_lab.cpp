@@ -1,8 +1,22 @@
 #include <iostream>
+#include <memory>
 #include <unistd.h>
 #include <sys/mman.h>
+#include <fstream>
 
+struct Point{
+    
+    int x;
+    int y;
 
+    Point(int a, int b):x(a), y(b){
+        std::cout<<"Point constructor\n";
+    }
+    ~Point(){
+        std::cout<<"Point destructor\n";
+    }
+
+};
 
 int main(){
     //getting the page size from the OS
@@ -34,8 +48,32 @@ int main(){
     for(std::size_t i = 0;i<length;i+=page_size){
         data[i] = 'A';
     }
-    munmap(memory, length);
     
+    munmap(memory, length);
+
+    //allocating memory for the Point object
+    
+    std::size_t size = sizeof(Point);
+
+    void* point_memory = mmap(
+            nullptr,
+            size,
+            PROT_READ | PROT_WRITE,
+            MAP_PRIVATE | MAP_ANONYMOUS,
+            -1,0
+    );
+ 
+    Point* point = static_cast<Point*>(point_memory);
+
+    std::construct_at(point, 10, 20);
+
+    std::cout<<"point x: "<<point->x<<"\n";
+    std::destroy_at(point);
+    munmap(point_memory, size);
+
+
+
+
 
     return 0;
 }
