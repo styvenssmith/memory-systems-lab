@@ -1,14 +1,14 @@
 Experiment 1
-1. My system page size is 16384 bytes
-2. the program queries the OS at runtime using 
+    1. My system page size is 16384 bytes
+    2. the program queries the OS at runtime using 
 sysconf(_SC_PAGESIZE)
 
 Experiment 2
-1. mmap creates a region in the process's virtual address space. nullptr lets the OS choose the virtual address. The length requests four pages of memory. PROT_READ |PROT_WRITE allows reading and writing. MAP_PRIVATE makes modifications private using copy on write. MAP_ANONYMOUS means the memory is not backed by a file. Since there is no file, the file descriptor is -1 and the offset is 0.
+    1. mmap creates a region in the process's virtual address space. nullptr lets the OS choose the virtual address. The length requests four pages of memory. PROT_READ |PROT_WRITE allows reading and writing. MAP_PRIVATE makes modifications private using copy on write. MAP_ANONYMOUS means the memory is not backed by a file. Since there is no file, the file descriptor is -1 and the offset is 0.
 
 
 Experiment 3
-1. We touch one byte per page table, to understand that mmap() does not immediately allocate physical RAM because it only creates a virtual memory mapping. The OS uses demand paging, so physical pages are allocated when the progam first accesses each page. mmap() does not construct C++ objects; it only provides raw storage
+    1. We touch one byte per page table, to understand that mmap() does not immediately allocate physical RAM because it only creates a virtual memory mapping. The OS uses demand paging, so physical pages are allocated when the progam first accesses each page. mmap() does not construct C++ objects; it only provides raw storage
 
 
 Experiment 4
@@ -20,12 +20,12 @@ answer:
 
 Experiment 5
 Question:
-    - We want to know what problem does munmap() solve
+    1. We want to know what problem does munmap() solve
 Answer:
-    - tells the kernel I'm done with this mapping
+    2. tells the kernel I'm done with this mapping
 
-    1. munmap() needs the original address returned by mmap() because we need the actual start of the original data we allocated, if the memory address is less or more than the start we will accidentally remove memory we did not mean to access, we need the original length for the same reason to know the precise memory we want to remove
-    2. munmap(memory, length)
+    3. munmap() needs the original address returned by mmap() because we need the actual start of the original data we allocated, if the memory address is less or more than the start we will accidentally remove memory we did not mean to access, we need the original length for the same reason to know the precise memory we want to remove
+    4. munmap(memory, length)
         - find the mapping that begins at memory
         - removes that mapping from your process's virtual address space
         - invalidates the page table entries for that region
